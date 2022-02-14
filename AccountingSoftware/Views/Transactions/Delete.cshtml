@@ -1,0 +1,18 @@
+﻿@model DeleteViewModel
+
+<form asp-controller="Transactions" asp-action="Delete" method="post">
+
+    <input asp-for="Guid" type="hidden" />
+
+    <br />
+    <h4 class="text-center">@Model.Message</h4>
+    <br />
+
+    <div>
+        <button class="btn btn-danger modal-btn-Dual pull-left" type="button" data-dismiss="modal">انصراف</button>
+        <button class="btn btn-success modal-btn-Dual pull-right" type="submit" name="btn-Delete">تایید</button>
+    </div>
+</form>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

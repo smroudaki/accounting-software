@@ -1,0 +1,39 @@
+﻿@model CheckTransitionViewModel
+
+<div id="Details-tabel">
+
+    <div class="row userprofile-detiles-item" style="">
+        <div class="col-md-3 userprofile-detiles-col-3-main">
+            <div class="panel userprofile-detiles-col-3 ">
+                <span class="userprofile-detiles-text">
+                    @Html.DisplayNameFor(model => model.Serial)
+                </span>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel userprofile-detiles-col-9">
+                <span class="userprofile-detiles-text">
+                    @Model.Serial
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row userprofile-detiles-item" style="">
+        <div class="col-md-3 userprofile-detiles-col-3-main">
+            <div class="panel userprofile-detiles-col-3 ">
+                <span class="userprofile-detiles-text">
+                    @Html.DisplayNameFor(model => model.IssueDate)
+                </span>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel userprofile-detiles-col-9">
+                <span class="userprofile-detiles-text">
+                    @Model.IssueDate
+                </span>
+            </div>
+        </div>
+    </div>
+
+</div>

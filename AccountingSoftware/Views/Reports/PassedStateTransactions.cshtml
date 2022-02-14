@@ -1,0 +1,144 @@
+﻿@model IEnumerable<TransactionViewModel>
+@using AccountingSoftware.Common
+
+@{
+    ViewBag.Title = "تراکنش های وصول شده";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="panel panel-body panel-default navigation">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body table-body" style="overflow-x: auto;">
+        <table id="DateTable" class="table table-striped table-bordered" style="width: 100%">
+            <thead>
+                <tr class="table-tr">
+                    <th scope="col">#</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.AccountNumber)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Type)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.State)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Cost)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.AccountSide)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Description)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.ReceiptDate)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.ModifiedDate)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.IsCheckTransaction)</th>
+                    <th scope="col" data-orderable="false">کنترل</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+                    int x = 0;
+                }
+
+                @foreach (var item in Model)
+                {
+                    x++;
+
+                    <tr>
+
+                        <td scope="row">@x</td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.AccountNumber)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.Type)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.State)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span class="cost" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'prefix': '', 'placeholder': ''">@Html.DisplayFor(modelItem => item.Cost)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.AccountSide)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.Description)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.ReceiptDate)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.ModifiedDate)</span>
+                        </td>
+
+                        <td scope="row">
+                            @if (item.IsCheckTransaction)
+                            {
+                                <a class="control btn btn-success btn-sm" data-toggle="tooltip" data-placement="auto" title="مشاهده چک" href="javascript:void(0)" onclick="ShowCheckInfo('@item.TransactionGuid')">مشاهده</a>
+                            }
+                            else
+                            {
+                                <span>@Messages.NotSet</span>
+                            }
+                        </td>
+
+                        <td scope="row">
+                            <a class="control btn btn-primary btn-sm glyphicon glyphicon-refresh" data-toggle="tooltip" data-placement="auto" title="تغییر وضعیت" href="javascript:void(0)" onclick="ChangeState('@item.TransactionGuid')"></a>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+@section Modals {
+
+    <script>
+
+        function ShowCheckInfo(transactionGuid) {
+            $.ajax({
+                url: "/Transactions/ShowCheckInfo/?transactionGuid=" + transactionGuid,
+                type: "Get",
+                data: {}
+            }).done(function (result) {
+                $("#myModal").modal("show");
+                $("#myModalLabel").html("اطلاعات چک");
+                $("#myModalBody").html(result);
+            });
+        }
+
+        function ChangeState(transactionGuid) {
+            $.ajax({
+                url: "/Transactions/ChangeState/?transactionGuid=" + transactionGuid,
+                type: "Get",
+                data: {}
+            }).done(function (result) {
+                $("#myModal").modal("show");
+                $("#myModalLabel").html("تغییر وضعیت");
+                $("#myModalBody").html(result);
+            });
+        }
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize InputMask
+            $(".cost").inputmask();
+        });
+    </script>
+
+}

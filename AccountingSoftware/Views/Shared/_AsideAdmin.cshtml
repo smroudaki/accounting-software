@@ -1,0 +1,119 @@
+﻿<ul class="navbar nav aside-panel">
+
+    <li>
+        <img src="~/Images/calc.png" alt="Logo" class="img-responsive img-rounded img-logo" style="height: 200px;">
+        <a href="@Url.Action("Index", "Dashboard")">
+            <i class="glyphicon glyphicon-dashboard"></i>
+            داشبورد
+        </a>
+    </li>
+
+    <li data-toggle="collapse" data-target="#sub-transactions">
+
+        <a href="javascript:void(0)">
+            <i class="glyphicon glyphicon-book"></i>
+            مدیریت تراکنش ها
+            <i class="glyphicon glyphicon-chevron-right pull-right gly-rotate-90"></i>
+        </a>
+
+        <ul class="collapse nav aside-sub-panel" id="sub-transactions">
+
+            <li>
+                <a href="@Url.Action("Index", "Transactions")">
+                    <i class="glyphicon glyphicon-book"></i>
+                    لیست تراکنش ها
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("CreateAccountTransaction", "Transactions")">
+                    <i class="glyphicon glyphicon-book"></i>
+                    افزودن تراکنش حساب
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("CreateCheckTransaction", "Transactions")">
+                    <i class="glyphicon glyphicon-book"></i>
+                    افزودن تراکنش چک
+                </a>
+            </li>
+
+        </ul>
+
+    </li>
+
+    <li data-toggle="collapse" data-target="#sub-reports">
+
+        <a href="javascript:void(0)">
+            <i class="glyphicon glyphicon-book"></i>
+            گزارشات
+            <i class="glyphicon glyphicon-chevron-right pull-right gly-rotate-90"></i>
+        </a>
+
+        <ul class="collapse nav aside-sub-panel" id="sub-reports">
+
+            <li>
+                <a href="@Url.Action("Remindings", "Reports")">
+                    <i class="glyphicon glyphicon-book"></i>
+                    یاداوری ها
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("PassedEvents", "Reports")">
+                    <i class="glyphicon glyphicon-book"></i>
+                    تراکنش های گذشته
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("PassedStateTransactions", "Reports")">
+                    <i class="glyphicon glyphicon-book"></i>
+                    تراکنش های وصول شده
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("NotPassedStateTransactions", "Reports")">
+                    <i class="glyphicon glyphicon-book"></i>
+                    تراکنش های وصول نشده
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("WaitingStateTransactions", "Reports")">
+                    <i class="glyphicon glyphicon-book"></i>
+                    تراکنش های در انتظار وصول
+                </a>
+            </li>
+
+        </ul>
+
+    </li>
+
+    <li>
+        <a href="javascript::void(0)" onclick="ChangePassword()">
+            <i class="glyphicon glyphicon-dashboard"></i>
+            تغییر رمز عبور
+        </a>
+    </li>
+
+</ul>
+
+<script>
+
+    function ChangePassword() {
+        $.ajax({
+            url: "/Users/ChangePassword",
+            type: "Get",
+            data: {}
+        }).done(function (result) {
+            console.log("test");
+            $("#myModal").modal("show");
+            $("#myModalLabel").html("تغییر رمز عبور");
+            $("#myModalBody").html(result);
+        });
+    }
+
+</script>

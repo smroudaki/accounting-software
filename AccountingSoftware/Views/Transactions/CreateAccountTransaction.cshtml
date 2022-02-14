@@ -1,0 +1,148 @@
+﻿@model CreateAccountTransactionViewModel
+
+@{
+    ViewBag.Title = "افزودن تراکنش";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+@section Styles {
+    <link href="~/lib/MdBootstrapPersianDateTimePickerMasterBs4/jquery.md.bootstrap.datetimepicker.style.css" rel="stylesheet" />
+}
+
+<div class="panel panel-body panel-default navigation">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="panel form-body">
+    <div class="panel-body">
+
+        <form asp-controller="Transactions" asp-action="CreateAccountTransaction" method="post">
+
+            <div class="modal-main">
+                <div class="row" style="margin: 0 -30px;">
+
+                    <div class="col-md-6">
+
+                        @*<div class="form-group">
+                            <label asp-for="AccountGuid" class="control-label"></label>
+                            <select asp-for="AccountGuid" asp-items="ViewBag.Accounts" class="form-control Select2_Normal">
+                                <option></option>
+                            </select>
+                            <span asp-validation-for="AccountGuid" class="text-danger"></span>
+                        </div>*@
+
+                        <div class="form-group">
+                            <label asp-for="TypeGuid" class="control-label"></label>
+                            <select asp-for="TypeGuid" asp-items="ViewBag.TransactionTypes" class="form-control Select2_Normal">
+                                <option></option>
+                            </select>
+                            <span asp-validation-for="TypeGuid" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="StateGuid" class="control-label"></label>
+                            <select asp-for="StateGuid" asp-items="ViewBag.TransactionStates" class="form-control Select2_Normal">
+                                <option></option>
+                            </select>
+                            <span asp-validation-for="StateGuid" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label"></label>
+                            <div class="input-group">
+                                <span class=" input-group-addon">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </span>
+                                <input asp-for="Title" class="form-control" />
+                            </div>
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Cost" class="control-label"></label>
+                            <div class="input-group">
+                                <span class=" input-group-addon">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </span>
+                                <input asp-for="Cost" class="form-control" type="text" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'prefix': '', 'placeholder': ''">
+                            </div>
+                            <span asp-validation-for="Cost" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="AccountSide" class="control-label"></label>
+                            <div class="input-group">
+                                <span class=" input-group-addon">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </span>
+                                <input asp-for="AccountSide" class="form-control" />
+                            </div>
+                            <span asp-validation-for="AccountSide" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"></label>
+                            <div class="input-group">
+                                <span class=" input-group-addon">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </span>
+                                <input asp-for="Description" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label asp-for="ReceiptDate" class="control-label"></label>
+                        <div id="date"></div>
+                        <input type="hidden" name="ReceiptDate" id="ReceiptDate" class="form-control">
+                        <span asp-validation-for="ReceiptDate" class="text-danger"></span>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <a href="@Url.Action("Index", "Transactions")" class="btn btn-danger modal-btn-Dual pull-left">انصراف</a>
+                <button class="btn btn-success modal-btn-Dual pull-right" type="submit" name="btn-Delete">تایید</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="~/lib/jQuery.Select2/js/select2.js"></script>
+    <script src="~/lib/jQuery.Select2/js/i18n/fa.js"></script>
+    <script src="~/js/Select2_Config.js"></script>
+
+    <script src="~/lib/MdBootstrapPersianDateTimePickerMasterBs4/jquery.md.bootstrap.datetimepicker.js"></script>
+    <script>
+        $('#date').MdPersianDateTimePicker({
+            targetTextSelector: '#ReceiptDate',
+            textFormat: 'yyyy-MM-dd HH:mm:ss',
+            inLine: true,
+            enableTimePicker: false,
+            englishNumber: true
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize InputMask
+            $(":input").inputmask();
+        });
+    </script>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+}

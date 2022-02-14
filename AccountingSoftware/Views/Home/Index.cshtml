@@ -1,0 +1,213 @@
+﻿
+@{
+    ViewData["Title"] = "صفحه اصلی";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-body" style="overflow-x: auto; color: #000000">
+        <div id='calendar'></div>
+    </div>
+</div>
+
+@section Styles {
+
+    <link href="~/lib/fullcalendar-4.4.2/packages/core/main.css" rel="stylesheet" />
+    <link href="~/lib/fullcalendar-4.4.2/packages/daygrid/main.css" rel="stylesheet" />
+    <link href="~/lib/fullcalendar-4.4.2/packages/timegrid/main.css" rel="stylesheet" />
+    <link href="~/lib/fullcalendar-4.4.2/packages/list/main.css" rel="stylesheet" />
+
+    <style>
+
+        .fc-list-table td {
+            color: #ffffff;
+        }
+
+        .fc-unthemed .fc-list-item:hover td {
+            background-color: initial;
+        }
+
+    </style>
+
+}
+
+@section Scripts {
+
+    <script src="~/js/axios.min.js"></script>
+
+    <script src="~/lib/fullcalendar-4.4.2/packages/core/main.js"></script>
+    <script src="~/lib/fullcalendar-4.4.2/packages/core/locales-all.js"></script>
+    <script src="~/lib/fullcalendar-4.4.2/packages/interaction/main.js"></script>
+    <script src="~/lib/fullcalendar-4.4.2/packages/daygrid/main.js"></script>
+    <script src="~/lib/fullcalendar-4.4.2/packages/timegrid/main.js"></script>
+    <script src="~/lib/fullcalendar-4.4.2/packages/list/main.js"></script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
+                header: {
+                    left: 'next,prev today',
+                    center: 'title',
+                    right: 'dayGridMonth,dayGridWeek,dayGridDay, listMonth'
+                },
+                locale: 'fa',
+                dir: 'rtl',
+                weekNumbers: false,
+                navLinks: true,
+                //selectable: true,
+                //select: function (arg) {
+                //    axios.get('Calendar/CreateEvent', {
+                //        params: {
+                //            start: arg.start,
+                //            end: arg.end
+                //        }
+                //    }).then(function (response) {
+                //        $('#myModal').modal('show');
+                //        $('#myModalLabel').html('افزودن رویداد');
+                //        $('#myModalBody').html(response.data);
+                //    }).catch(function (error) {
+                //        console.log(error);
+                //    })
+                //},
+                windowResize: function (view) {
+                    adjustSize(calendar);
+                },
+                editable: false,
+                eventLimit: false,
+                datesRender: function (info) {
+                    axios.get('Calendar/GetEvents', {
+                        params: {
+                            start: info.view.currentStart,
+                            end: info.view.currentEnd
+                        }
+                    }).then(function (response) {
+                        var eventSources = calendar.getEventSources();
+                        if (eventSources.length > 0) {
+                            eventSources.forEach(function (eventSource) {
+                                eventSource.remove();
+                            });
+                        }
+                        calendar.addEventSource(response.data);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                },
+                //showNonCurrentDates: false,
+                eventColor: '#ffffff',
+                //eventBackgroundColor: '#222d32',
+                //eventBorderColor: '#222d32',
+                eventRender: function (info) {
+                    //info.el.title = 'جهت حذف دو بار کلیک کنید';
+                    //info.el.style.transition = 'all 0.1s';
+                    info.el.style.padding = '5px';
+                    if (info.el.textContent.includes('پرداختی')) {
+                        info.el.style.cursor = 'pointer';
+                        info.el.style.backgroundColor = 'darkred';
+                        info.el.style.borderColor = 'darkred';
+                        info.el.onclick = function () {
+                            axios.get('Calendar/ShowDebtorDetails', {
+                                params: {
+                                    start: info.event.start
+                                }
+                            }).then(function (response) {
+                                console.log(response);
+                                $("#myModal").modal("show");
+                                $("#myModalLabel").html("جزییات پرداختی");
+                                $("#myModalBody").html(response.data);
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        };
+                    } else if (info.el.textContent.includes('دریافتی')) {
+                        info.el.style.cursor = 'pointer';
+                        info.el.style.backgroundColor = 'green';
+                        info.el.style.borderColor = 'green';
+                        info.el.onclick = function () {
+                            axios.get('Calendar/ShowCreditorDetails', {
+                                params: {
+                                    start: info.event.start
+                                }
+                            }).then(function (response) {
+                                console.log(response);
+                                $("#myModal").modal("show");
+                                $("#myModalLabel").html("جزییات دریافتی");
+                                $("#myModalBody").html(response.data);
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        };
+                    } else {
+                        info.el.style.cursor = 'text';
+                        info.el.style.backgroundColor = 'royalblue';
+                        info.el.style.borderColor = 'royalblue';
+                    }
+                    //info.el.addEventListener('dblclick', function () {
+                    //    $.ajax({
+                    //        url: 'Calendar/DeleteEvent?eventGuid=' + info.event.id,
+                    //        type: 'GET',
+                    //    }).done(function (result) {
+                    //        $('#myModal').modal('show');
+                    //        $('#myModalLabel').html('حذف رویداد');
+                    //        $('#myModalBody').html(result);
+                    //    });
+                    //});
+                }
+                //eventMouseEnter: function (info) {
+                //    if (calendar.view.type == 'listMonth') {
+                //        if (info.el.textContent.includes('پرداختی')) {
+                //            info.el.style.backgroundColor = 'darkred';
+                //            info.el.style.borderColor = 'darkred';
+                //        } else if (info.el.textContent.includes('دریافتی')) {
+                //            info.el.style.backgroundColor = 'green';
+                //            info.el.style.borderColor = 'green';
+                //        } else {
+                //            info.el.style.backgroundColor = 'blue';
+                //            info.el.style.borderColor = 'blue';
+                //        }
+                //    }
+                //},
+                //eventMouseLeave: function (info) {
+                //    if (calendar.view.type == 'listMonth') {
+                //        if (info.el.textContent.includes('پرداختی')) {
+                //            info.el.style.backgroundColor = 'darkred';
+                //            info.el.style.borderColor = 'darkred';
+                //        } else if (info.el.textContent.includes('دریافتی')) {
+                //            info.el.style.backgroundColor = 'green';
+                //            info.el.style.borderColor = 'green';
+                //        } else {
+                //            info.el.style.backgroundColor = 'blue';
+                //            info.el.style.borderColor = 'blue';
+                //        }
+                //    }
+                //}
+            });
+
+            calendar.render();
+
+            adjustSize(calendar);
+        });
+
+        function adjustSize(calendar) {
+            if (window.innerWidth <= 767) {
+                calendar.setOption('header', {
+                    left: 'next,prev today',
+                    center: null,
+                    right: 'title'
+                });
+                calendar.changeView('dayGridDay');
+            } else {
+                calendar.setOption('header', {
+                    left: 'next,prev today',
+                    center: 'title',
+                    right: 'dayGridMonth,dayGridWeek,dayGridDay, listMonth'
+                });
+            }
+        }
+
+    </script>
+
+}

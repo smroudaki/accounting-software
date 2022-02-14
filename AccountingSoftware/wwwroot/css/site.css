@@ -1,0 +1,568 @@
+﻿body {
+    font-family: Iransans;
+    background-color: whitesmoke;
+    color: whitesmoke;
+}
+
+hr {
+    border: 1px solid #222D32;
+}
+
+header {
+    box-shadow: -1px 2px 20px 0px #888888;
+}
+
+footer {
+    margin-top: 50px;
+    margin-bottom: 15px;
+    padding: 0px 15px;
+    line-height: 20px;
+    font-size: 12px;
+    color: black;
+    text-align: center;
+}
+
+/*********************************************** Config ********************************************/
+.Main-Config {
+    margin-top: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 620px;
+}
+
+.aside-Config {
+    width: 270px;
+    margin-right: 15px;
+}
+
+.section-Config {
+    width: calc(100% - 315px);
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.section-without-login-Config {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 80px);
+}
+
+.div-without-login-Config {
+    width: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.table {
+    color: black;
+}
+
+.form-body {
+    color: black;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.navbar-nav > li > a {
+    padding-bottom: 10px;
+}
+
+.control {
+    margin: 2.5px 0;
+}
+
+.mds-bootstrap-persian-datetime-picker-container {
+    z-index: 1000 !important;
+}
+
+.heading {
+    color: black;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 0px 15px;
+    font-weight: bolder;
+}
+
+.sufix {
+    position: relative;
+    top: -5px;
+    font-size: 50%;
+}
+
+/*********************************************** Navigation **********************************************/
+.navigation {
+    margin-bottom: 15px;
+}
+
+.navigation-title {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.navigation-btn-icon {
+    width: 31px;
+    height: 31px;
+    border: 2px solid;
+    border-radius: 100%;
+    padding-top: 6px;
+    padding-right: 6px;
+}
+
+.breadcrumb {
+    padding: 5px;
+    margin-bottom: 0;
+    background-color: transparent;
+}
+
+    .breadcrumb > .active {
+        color: #333333;
+    }
+
+    .breadcrumb > li + li:before {
+        color: #333333;
+    }
+
+.navigation nav {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+/*********************************************** General Style *************************************/
+.modal {
+}
+
+.modal-content {
+    top: 15vh;
+    border-radius: 0px;
+    background-color: #222D32;
+}
+
+.modal-btn-singel {
+    border-radius: 0%;
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin-top: 30px;
+}
+
+.modal-btn-Dual {
+    border-radius: 0%;
+    width: 50%;
+    height: 100%;
+    display: block;
+}
+
+.modal-header {
+    border-bottom: 1px solid #9d9d9d;
+    margin-bottom: 10px;
+}
+
+.close {
+    position: relative;
+    top: 5px;
+    opacity: unset;
+    color: #9d9d9d;
+    text-shadow: none;
+}
+
+    .close:hover {
+        opacity: unset;
+        color: whitesmoke;
+    }
+
+    .close:focus {
+        opacity: unset;
+        color: #9d9d9d;
+    }
+
+.modal-main {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.select2-dropdown {
+    z-index: 1000
+}
+
+.select2-tags {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.select2-container--bootstrap[dir="rtl"] .select2-selection--single .select2-selection__clear {
+    float: right !important;
+    margin-right: 0;
+    margin-left: 5px;
+}
+
+.selection {
+    color: #9D9D9D;
+}
+/*********************************************** navbar ********************************************/
+.navbar-inverse {
+    background-color: #222d32;
+    height: 60px;
+    border: none;
+    border-bottom: 3px solid #9d9d9d;
+}
+
+.navHeader {
+    height: 60px;
+    background-color: #222d32;
+    padding-top: 18px;
+    border-bottom: 3px solid #9d9d9d;
+    padding-right: 30px;
+    color: #9d9d9d;
+    font-weight: bolder;
+}
+
+    .navHeader a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #9d9d9d;
+    }
+
+.nav-item-out-login {
+    text-decoration: none;
+    font-size: 18px;
+    color: #9d9d9d;
+}
+
+.nav-item-out-login-a {
+    display: block;
+    padding: 0px;
+}
+
+.nav-item-out-login-a-i-search {
+    width: 30px;
+    height: 30px;
+    border: 2px solid;
+    border-radius: 100%;
+    padding-top: 6px;
+    padding-right: 1px;
+    font-size: 14px;
+}
+
+.nav-item-out-login-a-i-login {
+    width: 30px;
+    height: 30px;
+    border: 2px solid;
+    border-radius: 100%;
+    padding-top: 5.5px;
+    padding-right: 3px;
+    font-size: 14px;
+}
+
+.nav-item-out-login:hover, .nav-item-out-login:active {
+    text-decoration: none;
+    font-size: 18px;
+    color: whitesmoke;
+}
+
+.main-header .navbar .nav > li > a > .label {
+    position: absolute;
+    top: 9px;
+    right: 7px;
+    text-align: center;
+    font-size: 12.5px;
+    padding: 2px 3px 1px 3px;
+    line-height: .9;
+}
+
+.nav-top-userInfo-icon {
+    width: 30px;
+    height: 30px;
+    border: 2px solid;
+    border-radius: 100%;
+    padding-top: 6px;
+    padding-right: 6px;
+}
+
+.main-header .navbar-custom-menu, .main-header .navbar-right {
+    margin-left: 5px;
+    float: left;
+}
+
+.navbar-custom-menu > .navbar-nav > li > .dropdown-menu {
+    position: absolute;
+    right: auto;
+    left: 0;
+}
+
+.navbar-custom-menu > .navbar-nav > li {
+    margin-top: 0px;
+}
+
+.nav-username {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 16px;
+    position: relative;
+    top: -2px;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu {
+    border-radius: 0;
+    padding: 1px 0 0 0;
+    border-top-width: 0;
+    width: 280px;
+}
+
+    .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+        height: 175px;
+        padding: 10px;
+        text-align: center;
+    }
+
+.main-header li.user-header {
+    background-color: #222d32;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header > p {
+    z-index: 5;
+    color: #fff;
+    color: rgba(255,255,255,0.8);
+    font-size: 17px;
+    margin-top: 10px;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > .user-body {
+    padding: 10px;
+    border-top: 1px solid #dddddd;
+    height: 55px;
+    background-color: white;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > .user-footer {
+    background-color: #f9f9f9;
+    padding: 7px;
+    height: 50px;
+}
+
+/*********************************************** asid dashboard *************************************/
+.aside-panel {
+    background-color: #222d32;
+    padding: 0 0 10px 0;
+}
+
+    .aside-panel a {
+        color: #9d9d9d;
+    }
+
+.img-logo {
+    margin: 20px auto 20px auto;
+}
+
+.aside-panel li > a:hover, .aside-panel li > a:focus, .aside-panel li.active > a {
+    background-color: #222d32;
+    color: #fff;
+    border-right: 4px solid #3c8dbc;
+}
+
+
+.aside-sub-panel {
+    background-color: #2c3b41;
+    color: #9d9d9d;
+}
+
+    .aside-sub-panel li > a:hover, .aside-sub-panel li > a:focus, .aside-sub-panel li.active > a {
+        background-color: #2c3b41;
+        color: #fff;
+        border-right: 4px solid #6ca9cc;
+    }
+
+
+/*********************************************** Setting **********************************************/
+.setting-panel {
+}
+
+.setting-panel-btn {
+    line-height: 10px;
+    margin-left: 20px
+}
+
+.setting-detiles-col-9 {
+    background-color: #222D32;
+    line-height: 40px;
+    border-radius: 0px;
+    margin-bottom: 10px;
+}
+
+.setting-col {
+    background-color: #222D32;
+    height: 43px;
+    border-radius: 0px;
+    padding-right: 8px;
+    padding-left: 8px;
+    margin-bottom: 10px;
+}
+
+.setting-col-titel {
+    color: whitesmoke;
+}
+
+.setting-col-titel-icon {
+    top: 4px;
+}
+
+.setting-form-btn {
+    border-radius: 0%;
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+/*********************************************** PersianDateTimePicker ********************************************/
+
+.PersianDateTimePicker {
+    border: solid 1px #ccc;
+    background: #222d32;
+    color: #ccc;
+}
+
+    .PersianDateTimePicker .table {
+        margin-bottom: initial;
+    }
+
+        .PersianDateTimePicker table[data-name="md-persiandatetimepicker-timepicker"],
+        .PersianDateTimePicker .table tfoot {
+            display: none;
+        }
+
+    .PersianDateTimePicker .bg-info {
+        background-color: darkslategrey;
+    }
+
+    .PersianDateTimePicker .dropdown-menu {
+        height: 250px;
+        overflow-y: scroll;
+        background-color: #337ab7;
+    }
+
+/*** UserProfile **/
+
+.userprofile-detiles {
+    margin-top: 10px;
+}
+
+.userprofile-detiles-col-3-main {
+    padding-left: 0px;
+}
+
+.userprofile-detiles-col-3 {
+    background-color: #374449;
+    line-height: 40px;
+    border-radius: 0px;
+    margin-bottom: 10px;
+}
+
+.userprofile-detiles-col-9 {
+    background-color: #374449;
+    line-height: 40px;
+    border-radius: 0px;
+    margin-bottom: 10px;
+}
+
+.userprofile-detiles-text {
+    padding: 0px 15px 0px 0px;
+}
+
+.userprofile-detiles-item {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/*********************************************** Full Calendar ********************************************/
+.fc-toolbar h2 {
+    font-size: 16px !important;
+}
+
+.fc-row .fc-content-skeleton {
+    padding-bottom: 0px !important;
+}
+
+.fc-day-grid-event .fc-content {
+    white-space: inherit !important;
+    line-height: 20px !important;
+}
+
+@media screen and (max-width:990px) {
+    /*********************************************** Config ********************************************/
+    .Main-Config {
+        margin-top: 130px;
+    }
+
+    .aside-Config {
+        width: calc(100% - 30px);
+        margin-left: 15px;
+        margin-bottom: 15px;
+    }
+
+    .section-Config {
+        width: calc(100% - 30px);
+    }
+
+    /*** UserProfile **/
+    .userprofile {
+        margin-top: 0px;
+    }
+
+    .userprofile-main > aside {
+        border-left: 0px solid #9d9d9d;
+    }
+
+    .userprofile-section {
+        height: unset;
+    }
+
+    .userprofile-detiles-col-3 {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .userprofile-detiles-col-9 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .userprofile-detiles-col-3-main {
+        padding-left: 15px;
+    }
+
+    .main-header .navbar-custom-menu, .main-header .navbar-right, .navbar-nav {
+        margin: initial;
+    }
+
+    .navbar-custom-menu > .navbar-nav > li {
+        display: inline-block;
+    }
+
+    footer {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    /*********************************************** Full Calendar ********************************************/
+    .fc-toolbar h2 {
+        font-size: 15px !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .navHeader {
+        text-align: center;
+        padding: 15px;
+    }
+
+    /*********************************************** Full Calendar ********************************************/
+    .fc-toolbar {
+        flex-direction: column-reverse !important;
+    }
+}

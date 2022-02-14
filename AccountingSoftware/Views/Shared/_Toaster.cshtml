@@ -1,0 +1,73 @@
+﻿@using AccountingSoftware.Models.Enums
+
+@{
+    void Toast(string message, string title)
+    {
+        @switch ((ToasterState)TempData["ToasterState"])
+        {
+            case ToasterState.Success:
+
+                <script>
+                    ToastSuccess("@message", "@title");
+                </script>
+
+                break;
+
+            case ToasterState.Info:
+
+                <script>
+                    ToastInfo("@message", "@title");
+                </script>
+
+                break;
+
+            case ToasterState.Warning:
+
+                <script>
+                    ToastWarning("@message", "@title");
+                </script>
+
+                break;
+
+            case ToasterState.Error:
+
+                <script>
+                    ToastError("@message", "@title");
+                </script>
+
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    if (TempData["ToasterState"] != null)
+    {
+        switch ((ToasterType)TempData["ToasterType"])
+        {
+            case ToasterType.Title:
+
+                Toast(string.Empty, TempData["ToasterTitle"].ToString());
+                break;
+
+            case ToasterType.Full:
+
+                Toast(TempData["ToasterMessage"].ToString(), TempData["ToasterTitle"].ToString());
+                break;
+
+            case ToasterType.Message:
+
+                Toast(TempData["ToasterMessage"].ToString(), string.Empty);
+                break;
+
+            default:
+                break;
+        }
+
+        TempData["ToasterState"] = null;
+        TempData["ToasterType"] = null;
+        TempData["ToasterTitle"] = null;
+        TempData["ToasterMessage"] = null;
+    }
+}

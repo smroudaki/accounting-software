@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "تقویم";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="panel panel-body panel-default navigation">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body" style="overflow-x: auto; color: #000000">
+        <div id='calendar'></div>
+    </div>
+</div>
+
+@section Styles {
+
+    <link href="~/lib/fullcalendar-4.4.2/packages/core/main.css" rel="stylesheet" />
+    <link href="~/lib/fullcalendar-4.4.2/packages/daygrid/main.css" rel="stylesheet" />
+    <link href="~/lib/fullcalendar-4.4.2/packages/timegrid/main.css" rel="stylesheet" />
+    <link href="~/lib/fullcalendar-4.4.2/packages/list/main.css" rel="stylesheet" />
+
+}
+
+@section Scripts {
+
+    <script src="~/js/axios.min.js"></script>
+
+    <script src="~/lib/fullcalendar-4.4.2/packages/core/main.js"></script>
+    <script src="~/lib/fullcalendar-4.4.2/packages/core/locales-all.js"></script>
+    <script src="~/lib/fullcalendar-4.4.2/packages/interaction/main.js"></script>
+    <script src="~/lib/fullcalendar-4.4.2/packages/daygrid/main.js"></script>
+    <script src="~/lib/fullcalendar-4.4.2/packages/timegrid/main.js"></script>
+    <script src="~/lib/fullcalendar-4.4.2/packages/list/main.js"></script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
+                header: {
+                    left: 'next,prev today',
+                    center: 'title',
+                    right: 'dayGridMonth,dayGridWeek,dayGridDay, listMonth'
+                },
+                locale: 'fa',
+                dir: 'rtl',
+                weekNumbers: false,
+                navLinks: true,
+                selectable: true,
+                select: function (arg) {
+                    axios.get('Calendar/CreateEvent', {
+                        params: {
+                            start: arg.start,
+                            end: arg.end
+                        }
+                    }).then(function (response) {
+                        $('#myModal').modal('show');
+                        $('#myModalLabel').html('افزودن رویداد');
+                        $('#myModalBody').html(response.data);
+                    }).catch(function (error) {
+                        console.log(error);
+                    })
+                },
+                windowResize: function (view) {
+                    adjustSize(calendar);
+                },
+                editable: false,
+                eventLimit: false,
+                datesRender: function (info) {
+                    axios.get('Calendar/GetEvents', {
+                        params: {
+                            start: info.view.currentStart,
+                            end: info.view.currentEnd
+                        }
+                    }).then(function (response) {
+                        var eventSources = calendar.getEventSources();
+                        if (eventSources.length > 0) {
+                            eventSources.forEach(function (eventSource) {
+                                eventSource.remove();
+                            });
+                        }
+                        calendar.addEventSource(response.data);
+                    }).catch(function (error) {
+                        console.log(error);
+                    })
+                },
+                eventColor: '#222d32',
+                eventBackgroundColor: '#222d32',
+                eventBorderColor: '#222d32',
+                eventRender: function (info) {
+                    info.el.title = 'جهت حذف دو بار کلیک کنید';
+                    info.el.style.transition = 'all 0.1s';
+                    info.el.style.padding = '5px';
+                    info.el.addEventListener('dblclick', function () {
+                        $.ajax({
+                            url: 'Calendar/DeleteEvent?eventGuid=' + info.event.id,
+                            type: 'GET',
+                        }).done(function (result) {
+                            $('#myModal').modal('show');
+                            $('#myModalLabel').html('حذف رویداد');
+                            $('#myModalBody').html(result);
+                        });
+                    });
+                },
+                eventMouseEnter: function (info) {
+                    if (calendar.view.type != 'listMonth') {
+                        info.el.style.backgroundColor = 'red';
+                        info.el.style.borderColor = 'red';
+                    }
+                },
+                eventMouseLeave: function (info) {
+                    if (calendar.view.type != 'listMonth') {
+                        info.el.style.backgroundColor = '#222d32';
+                        info.el.style.borderColor = '#222d32';
+                    }
+                }
+            });
+
+            calendar.render();
+
+            adjustSize(calendar);
+        });
+
+        function adjustSize(calendar) {
+            if (window.innerWidth <= 767) {
+                calendar.setOption('header', {
+                    left: 'next,prev today',
+                    center: null,
+                    right: 'title'
+                });
+                calendar.changeView('dayGridDay');
+            } else {
+                calendar.setOption('header', {
+                    left: 'next,prev today',
+                    center: 'title',
+                    right: 'dayGridMonth,dayGridWeek,dayGridDay, listMonth'
+                });
+            }
+        }
+
+    </script>
+
+}

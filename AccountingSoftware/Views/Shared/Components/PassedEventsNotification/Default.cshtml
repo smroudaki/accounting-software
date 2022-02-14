@@ -1,0 +1,8 @@
+﻿@model int
+
+<li class="notifications-menu menu-item">
+    <a href="@Url.Action("PassedEvents", "Reports")" aria-haspopup="true" aria-expanded="true" data-placement='auto' title='تراکنش های گذشته'>
+        <i class="fa fa-bell nav-top-userInfo-icon" style="padding-right: 7px;"></i>
+        <span class="label label-danger">@Model</span>
+    </a>
+</li>

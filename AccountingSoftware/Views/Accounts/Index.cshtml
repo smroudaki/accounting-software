@@ -1,0 +1,144 @@
+﻿@model IEnumerable<AccountViewModel>
+
+@{
+    ViewBag.Title = "حساب ها";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="panel panel-body panel-default navigation">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+
+    <div class="pull-right">
+        <a href="javascript:void(0)" onclick="Create()" data-toggle="tooltip" data-placement="auto" title="افزودن حساب">
+            <i class="glyphicon glyphicon-plus navigation-btn-icon"></i>
+        </a>
+    </div>
+
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body table-body" style="overflow-x: auto;">
+        <table id="DateTable" class="table table-striped table-bordered" style="width: 100%">
+            <thead>
+                <tr class="table-tr">
+                    <th scope="col">#</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.UserFullName)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.BankName)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.AccountName)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.AccountNumber)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.CardNumber)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Credit)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.ModifiedDate)</th>
+                    <th scope="col" data-orderable="false">کنترل</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+                    int x = 0;
+                }
+
+                @foreach (var item in Model)
+                {
+                    x++;
+
+                    <tr>
+
+                        <td scope="row">@x</td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.UserFullName)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.BankName)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.AccountName)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.AccountNumber)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.CardNumber)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span class="credit" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'prefix': '', 'placeholder': ''">@Html.DisplayFor(modelItem => item.Credit)</span>
+                        </td>
+
+                        <td scope="row">
+                            <span>@Html.DisplayFor(modelItem => item.ModifiedDate)</span>
+                        </td>
+
+                        <td scope="row">
+                            <a class="control btn btn-warning btn-sm glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="auto" title="ویرایش" href="javascript:void(0)" onclick="Edit('@item.AccountGuid')"></a>
+                            <a class="control btn btn-danger btn-sm glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="auto" title="حذف" href="javascript:void(0)" onclick="Delete('@item.AccountGuid')"></a>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Modals {
+
+    <script>
+
+        function Create() {
+            $.ajax({
+                url: "/Accounts/Create",
+                type: "Get",
+                data: {}
+            }).done(function (result) {
+                $("#myModal").modal("show");
+                $("#myModalLabel").html("افزودن حساب");
+                $("#myModalBody").html(result);
+            });
+        }
+
+        function Edit(accountGuid) {
+            $.ajax({
+                url: "/Accounts/Edit/?accountGuid=" + accountGuid,
+                type: "Get",
+                data: {}
+            }).done(function (result) {
+                $("#myModal").modal("show");
+                $("#myModalLabel").html("ویرایش حساب");
+                $("#myModalBody").html(result);
+            });
+        }
+
+        function Delete(accountGuid) {
+            $.ajax({
+                url: "/Accounts/Delete/?accountGuid=" + accountGuid,
+                type: "Get",
+                data: {}
+            }).done(function (result) {
+                $("#myModal").modal("show");
+                $("#myModalLabel").html("حذف حساب");
+                $("#myModalBody").html(result);
+            });
+        }
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize InputMask
+            $(".credit").inputmask();
+        });
+    </script>
+
+}
